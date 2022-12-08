@@ -15,9 +15,9 @@
 | :------------------------------------------------------------ |
 | 主机存活扫描 / 端口扫描 / 端口服务识别 / WebTitle扫描 / Web指纹识别 |
 | **口令爆破：**                                               |
-| 数据库(mysql、mssql、redis、psql、oracle) / 应用服务(ssh、smb、rdp) |
+| mysql、mssql、redis、psql、oracle、memcached、mongodb、redis、ssh、smb、rdp、ftp、elastic |
 | **漏洞扫描：**                                               |
-| 系统漏洞() / Web漏洞()                                       |
+| docker、kubernetes、rmi、snmp、zookeeper、MS17010、MS-SMB2                                     |
 | **深入功能：**                                               |
 |                                                              |
 | **外置插件：**                                               |
@@ -31,27 +31,19 @@
 Lscan.exe -h 192.168.1.1/24       (信息收集模式扫描)
 Lscan.exe -h 192.168.1.1/24 -ifms (信息收集模式扫描)
 Lscan.exe -h 192.168.1.1/24 -satt (扫描探测模式扫描)
-Lscan.exe -h 192.168.1.1/24 -ffat (火力全开模式扫描)  // 非对外开放功能
 ```
 
 其他用法：
 ```
-Lscan.exe -h 192.168.1.1/24 -modular ftp -fun blast // 模块：ftp 功能：口令爆破
-Lscan.exe -h 192.168.1.1/24 -m ftp -f blast // 模块：ftp 功能：口令爆破
+Lscan.exe -h 192.168.1.1/24 -m ftp      // 模块：ftp 功能：口令爆破
+Lscan.exe -h 192.168.1.1/24 -m survival // 模块：资产 功能：存活探测
+Lscan.exe -h 192.168.1.1/24 -m portscan // 模块：资产 功能：端口开放扫描
 
-Lscan.exe -h 192.168.1.1/24 -modular assets -fun survival // 模块：资产 功能：存活探测
-Lscan.exe -h 192.168.1.1/24 -m assets -f survival // 模块：资产 功能：存活探测
-
-Lscan.exe -h 192.168.1.1/24 -modular assets -fun port_open // 模块：资产 功能：端口开放扫描
-Lscan.exe -h 192.168.1.1/24 -m assets -f port_open // 模块：资产 功能：端口开放扫描
 ```
 
 参数列表：
 
 ```
-说明：
-        A类参数均可做单独使用参数，B类参数大部分需要结合C类参数使用，C类参数不可作为单独使用参数。
-
 A类参数：
 	-host string
 	-h string
@@ -65,31 +57,9 @@ A类参数：
 	
 
 B类参数：
-	-modular string
 	-m string
 	模块选项： survival | portscan | ftp | rdp | smb | ssh | assets | mongodb | mssql | mysql | oracle | postgres | redis | webt | attack
 	
-			
-辅助参数：
-
-	-un string
-	参数说明：指定某一个用户名，用于登录填充
-	参数范围：ftp/rdp/smb/ssh/mongodb/mssql/mysql/oracle/postgres/redis
-
-	-pw string
-	参数说明：指定某一个密码，用于登录填充
-	参数范围：ftp/rdp/smb/ssh/mongodb/mssql/mysql/oracle/postgres/redis
-
-	-lpw G:mima/password.txt
-	参数说明：用于加载本地的密码列表，进行爆破登录等用途
-	参数范围：ftp/rdp/smb/ssh/mongodb/mssql/mysql/oracle/postgres/redis
-
-	-port string
-	-p
-	参数说明：用于设置制定的端口，进行扫描爆破
-	参数范围：
-
-
 ```
 
 # 4. 运行展示
@@ -131,6 +101,7 @@ https://github.com/u21h2/nacs
 
 
 # 9. 更新概况
+[+] 2022/12/08 调整ssh功能模块  
 [+] 2022/11/29 入口模式架构调整  
 [+] 2022/11/27 项目框架、基础功能已初步完成  
 [+] 2022/7/31 项目架构创建
