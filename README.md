@@ -11,15 +11,15 @@
 
 # 2. 主要功能
 
-| **信息收集：**                                                                     |
-|:------------------------------------------------------------------------------|
-| 主机存活扫描 / 端口扫描 / 端口服务识别 / WebTitle扫描 / Web指纹识别                                 |
-| **口令爆破：**                                                                     |
-| mysql、mssql、redis、psql、oracle、memcached、mongodb、redis、ssh、smb、rdp、ftp、elastic |
-| **漏洞扫描：**                                                                     |
-| docker、kubernetes、rmi、snmp、zookeeper、MS17010、MS-SMB2                          |
-| **扩展功能：**                                                                     |
-|                                                                               |
+| **信息收集：**                                                               |
+|:------------------------------------------------------------------------|
+| 主机存活扫描 / 端口扫描 / 端口服务识别 / WebTitle扫描 / Web指纹识别                           |
+| **口令爆破：**                                                               |
+| mysql、mssql、redis、psql、oracle、memcached、mongodb、ssh、smb、rdp、ftp、elastic |
+| **漏洞扫描：**                                                               |
+| docker、kubernetes、rmi、snmp、zookeeper、MS17010、MS-SMB2                    |
+| **扩展功能：**                                                               |
+|                                                                         |
 
 
 
@@ -57,7 +57,7 @@ A类参数：
 
 B类参数：
 	-m string
-	模块选项： survival | portscan | ftp | rdp | smb | ssh | assets | mongodb | mssql | mysql | oracle | postgres | redis | webt | attack
+	模块选项： survival | portscan | ftp | rdp | smb | ssh | assets | mongodb | mssql | mysql | oracle | postgres | redis 
 	
 ```
 
