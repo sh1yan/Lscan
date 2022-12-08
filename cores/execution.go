@@ -50,7 +50,9 @@ func attackModualScan(info *lc.HostInfo) {
 // modualAloneScan 用于扫描特定端口号的模块的函数，该函数只涉及在 entrance.go 中判断模块使用
 func modualAloneScan(mnane string, info *lc.HostInfo) {
 	// 该模块对应扫描主要针对处理通过flag中使用B，C类单独功能的处理
-	lcfs.IpSurvivalScan(info) // 加载IP地址存活扫描
+	if mnane != "survival" {
+		lcfs.IpSurvivalScan(info) // 加载IP地址存活扫描
+	}
 	logger.Info(fmt.Sprintf("Start %s scanning detection module", mnane))
 	if len(info.Ports) >= 5 { // 若没有-p 输入唯一的端口号，则 addreHandle() 函数会把config中的端口号生成列表，所以该处设置如果端口号大于5，则表示没有输入 ip 参数，故进行反转找对应功能里的默认配置端口号
 		// 根据模块名称反找见对应端口号，并进行配置 // 进入该判断表示 -p 等于  0，或端口扫描结果发现未开放端口号
