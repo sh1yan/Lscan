@@ -2,11 +2,14 @@ package systemapp
 
 import (
 	lcc "Lscan/common/components"
+	"Lscan/common/components/gftp"
 	"Lscan/common/components/logger"
 	lc "Lscan/configs"
 	"fmt"
 	"strconv"
 )
+
+var Cftp *gftp.FTP // 用于单独连接ftp服务器使用
 
 // FtpAttack FTP口令爆破函数
 func FtpAttack(info *lc.HostInfo) {
@@ -23,6 +26,21 @@ func FtpAttack(info *lc.HostInfo) {
 					// PrintIsok2(ScanType, Target, "21", user, pwd)
 					result := fmt.Sprintf("[FTP] %s:%d Password cracked successfully! account number：%s password：%s ", ip, port, user, pwd)
 					logger.Success(result)
+					if Cftp, err = gftp.Connect(ip + ":" + info.ScanPort); err != nil {
+					}
+					if err = Cftp.Login(user, pwd); err == nil {
+						dirs, err := Cftp.List("")
+						if err == nil {
+							if len(dirs) > 0 {
+								dirsresult := "FTP-DirsInfo:\n" + lcc.CreatShowSpaceOne() + "[" + logger.LightGreen("*") + "] " + "Current Login: " + user + " - Current Password: " + pwd
+								for i := 0; i < len(dirs); i++ {
+									dirsinfo := lcc.Delete_extra_space(dirs[i])
+									dirsresult += "\n" + lcc.CreatShowSpaceTwo() + "[" + logger.LightGreen("->") + "] " + dirsinfo
+								}
+								logger.Success(dirsresult)
+							}
+						}
+					}
 					return
 					// break Loop
 				}
@@ -48,9 +66,9 @@ func ftpAuth(ip string, port string, user string, pass string) (result bool, err
 	result = false
 
 	// 定义一个goftp的类对象
-	var Lftp *lcc.FTP
+	var Lftp *gftp.FTP
 
-	if Lftp, err = lcc.Connect(ip + ":" + port); err != nil {
+	if Lftp, err = gftp.Connect(ip + ":" + port); err != nil {
 		// 对目的ip的21端口进行连接，并返回相应自定义的ftp类型数据
 		//fmt.Println(err)
 	}

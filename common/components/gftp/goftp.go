@@ -1,4 +1,4 @@
-package components
+package gftp
 
 // 代码源地址：https://github.com/dutchcoders/goftp/blob/v1/ftp.go
 

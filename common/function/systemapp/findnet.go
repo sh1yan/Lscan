@@ -78,14 +78,14 @@ func read(text []byte, host string) error {
 	encodedStr := hex.EncodeToString(text)
 	hostnames := strings.Replace(encodedStr, "0700", "", -1)
 	hostname := strings.Split(hostnames, "000000")
-	result := "NetInfo:\n             [" + logger.LightGreen("*") + "] " + host
+	result := "NetInfo:\n" + lcc.CreatShowSpaceOne() + "[" + logger.LightGreen("*") + "] " + host
 	for i := 0; i < len(hostname); i++ {
 		hostname[i] = strings.Replace(hostname[i], "00", "", -1)
 		host, err := hex.DecodeString(hostname[i])
 		if err != nil {
 			return err
 		}
-		result += "\n                 [" + logger.LightGreen("->") + "] " + string(host)
+		result += "\n" + lcc.CreatShowSpaceTwo() + "[" + logger.LightGreen("->") + "] " + string(host)
 	}
 	logger.Success(result)
 	return nil
