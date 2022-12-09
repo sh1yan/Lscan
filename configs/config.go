@@ -53,18 +53,20 @@ type PocInfo struct {
 
 // 常规定义参数
 var (
-	Ifms            bool   // 信息扫描判断
-	Satt            bool   // 信息+漏洞扫描判断
-	Apon            bool   // 开启精简端口号扫描
-	LogLevel        int    // log等级,默认设置3级
-	NoColor         bool   // 是否开启log输出非颜色版设置
-	OutputFileName  string // 用于设置log输出名称设置
-	NoSave          bool   // not save file // logsync.go 中设置不进行日志写入的设置, 注：在常规的logger中并没有设置该参数
-	NoProbe         bool   // 不进行主机存活扫描
-	ThreadsPortScan int    // 端口扫描线程 (default 1000)  -tps int
-	PortFile        string // 存放端口号的文件地址
-	HostFile        string // host file, -hf ip.txt
-	Timeout         int64  // Set timeout, flag 中默认为 3
+	Ifms              bool     // 信息扫描判断
+	Satt              bool     // 信息+漏洞扫描判断
+	Apon              bool     // 开启精简端口号扫描
+	LogLevel          int      // log等级,默认设置3级
+	NoColor           bool     // 是否开启log输出非颜色版设置
+	OutputFileName    string   // 用于设置log输出名称设置
+	NoSave            bool     // not save file // logsync.go 中设置不进行日志写入的设置, 注：在常规的logger中并没有设置该参数
+	NoProbe           bool     // 不进行主机存活扫描
+	ThreadsPortScan   int      // 端口扫描线程 (default 1000)  -tps int
+	PortFile          string   // 存放端口号的文件地址
+	HostFile          string   // host file, -hf ip.txt
+	Timeout           int64    // Set timeout, flag 中默认为 3
+	NoScanModular     string   // 不进行扫描的模块名称
+	NoScanModularList []string // 不进行扫描的模块名称list
 
 )
 

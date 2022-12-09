@@ -1,6 +1,7 @@
 package cores
 
 import (
+	lcc "Lscan/common/components"
 	"Lscan/common/components/logger"
 	lcfa "Lscan/common/function/analysis"
 	lcfs "Lscan/common/function/systemapp"
@@ -13,6 +14,12 @@ import (
 
 // addScan 调用功能函数公共模块
 func addScan(name string, info *lc.HostInfo) {
+
+	if lcc.IsContain(lc.NoScanModularList, name) {
+		// 如果在 -nm 中输入了不进行扫描的模块名，则在这里进行处理，进行排除掉这个函数
+		return
+	}
+
 	f := reflect.ValueOf(lcfa.FuncList[name]) // 通过端口号获取扫描类型，例如 FtpScan,
 	in := []reflect.Value{reflect.ValueOf(info)}
 	f.Call(in) // 选用第一个例子来说，就是 f.Call(in)  == FtpScan(info)

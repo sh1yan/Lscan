@@ -64,6 +64,7 @@ func Flag(addre *lc.HostInfo, instruct *lc.CommandInfo) {
 	flag.BoolVar(&lc.Apon, "apon", false, "Enable this setting to scan with full port list")
 	flag.StringVar(&lc.OutputFileName, "o", "outcome.txt", "")
 	flag.BoolVar(&lc.NoProbe, "np", false, "no probe")
+	flag.StringVar(&lc.NoScanModular, "nm", "", "Set the module name not to be scanned")
 	flag.IntVar(&lc.ThreadsPortScan, "tps", 1000, "PortScan Thread nums")
 	flag.BoolVar(&lc.DnsLog, "dns", false, "using dnslog poc")
 	flag.BoolVar(&lc.PocFull, "full", false, "poc full scan,as: shiro 100 key")

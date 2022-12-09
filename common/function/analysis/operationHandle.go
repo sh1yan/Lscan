@@ -205,4 +205,21 @@ func parseComprehensive(info *lc.HostInfo) {
 		lc.Socks5Proxy = "socks5://" + lc.Socks5Proxy
 		lc.NoProbe = true // flag 设置中默认未开启闭禁 ping 扫描
 	}
+
+	if lc.NoScanModular != "" {
+		var funcNameList []string
+		for key, _ := range FuncList {
+			funcNameList = append(funcNameList, key)
+		}
+		logger.Debug(fmt.Sprint("operationHandle.go 214 funcNameList => ", funcNameList))
+		nsmodular := strings.Split(lc.NoScanModular, ",")
+		for _, val := range nsmodular {
+			logger.Debug(fmt.Sprint("operationHandle.go 217 val => ", val))
+			if lcc.IsContain(funcNameList, val) {
+				lc.NoScanModularList = append(lc.NoScanModularList, val)
+				logger.Debug(fmt.Sprint("operationHandle.go 220 lc.NoScanModularList => ", lc.NoScanModularList))
+			}
+		}
+	}
+
 }
