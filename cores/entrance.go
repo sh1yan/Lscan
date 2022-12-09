@@ -58,7 +58,7 @@ func Flag(addre *lc.HostInfo, instruct *lc.CommandInfo) {
 	flag.StringVar(&lc.HostFile, "hf", "", "host file, -hf ip.txt")
 	flag.StringVar(&addre.ScanPort, "p", "", "IP port of the host you want to scan,for example: 22 | 1-65535 | 22,80,3306")
 	flag.StringVar(&lc.PortFile, "pf", "", "Port File")
-	flag.StringVar(&instruct.Modular, "m", "", "Select scan modular: ftp | rdp | smb | ssh | assets | mongodb | mssql | mysql | oracle | postgres | redis | survival | portscan")
+	flag.StringVar(&instruct.Modular, "m", "", "Select scan modular: survival | portscan | ftp | ssh | find-net | snmp | smb | ms17010 | smbghost | rmi | mssql | oracle | zookeeper | docker | mysql | rdp | postgres | redis | k8s | elastic | memcached | mongodb")
 	flag.BoolVar(&lc.Ifms, "ifms", false, "stat infoScan")
 	flag.BoolVar(&lc.Satt, "satt", false, "stat infoScan and vulScan")
 	flag.BoolVar(&lc.Apon, "apon", false, "Enable this setting to scan with full port list")

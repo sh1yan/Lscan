@@ -11,15 +11,15 @@
 
 # 2. 主要功能
 
-| **信息收集：**                                                               |
-|:------------------------------------------------------------------------|
-| 主机存活扫描 / 端口扫描 / 端口服务识别 / WebTitle扫描 / Web指纹识别                           |
-| **口令爆破：**                                                               |
-| mysql、mssql、redis、psql、oracle、memcached、mongodb、ssh、smb、rdp、ftp、elastic |
-| **漏洞扫描：**                                                               |
-| docker、kubernetes、rmi、snmp、zookeeper、MS17010、MS-SMB2                    |
-| **扩展功能：**                                                               |
-|                                                                         |
+| **信息收集：**                                                                |
+|:-------------------------------------------------------------------------|
+| 主机存活扫描 / 端口扫描 / 端口服务识别 / ~~WebTitle扫描~~ / ~~Web指纹识别~~                    |
+| **口令爆破：**                                                                |
+| mysql、mssql、redis、psql、oracle、memcached、mongodb、ssh、smb、rdp、ftp、elastic  |
+| **漏洞扫描：**                                                                |
+| docker、kubernetes、rmi、snmp、zookeeper、MS17010、MS-SMB2                     |
+| **扩展功能：**                                                                |
+|                                                                          |
 
 
 
@@ -63,11 +63,14 @@ B类参数：
 
 # 4. 运行展示
 以下运行截图暂为Debug下运行截图,非正式公开版本(2022.11.27)  
-`Lscan.exe -h 192.168.1.1-10  (默认信息收集模块)`
-![](./image/debug-运行显示.png)
+`Lscan.exe -h 10.171.130.99  (默认信息收集模块)`
+![](./image/默认运行显示.png)
 
-`Lscan.exe -h 192.168.1.1-10  (默认本地扫描结果输出)`
-![](./image/debug-日志本地输出.png)
+`Lscan.exe -h 10.171.130.99  (默认本地扫描结果输出)`
+![](./image/查看本地日志输出结果.png)
+
+`Lscan.exe -h 10.171.130.99 -satt  (扫描探测模块)`
+![](./image/satt攻击运行显示.png)
 
 # 5. 免责声明
 
