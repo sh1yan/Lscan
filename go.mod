@@ -11,12 +11,14 @@ require (
 	github.com/icodeface/tls v0.0.0-20190904083142-17aec93c60e5
 	github.com/lunixbochs/struc v0.0.0-20200707160740-784aaebc1d40
 	github.com/monnand/goredis v0.0.0-20160310054727-e23c27d63458
+	github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca
 	github.com/schollz/progressbar/v3 v3.12.2
 	github.com/sh1yan/gohive v0.0.0-20191008095549-7eec91c92993
 	github.com/sh1yan/iprange v0.0.0-20180210233524-3a31f5ed42d2
 	github.com/stacktitan/smb v0.0.0-20190531122847-da9a425dceb8
 	golang.org/x/crypto v0.3.0
 	golang.org/x/net v0.2.0
+	golang.org/x/text v0.4.0
 	gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22
 	gopkg.in/olivere/elastic.v3 v3.0.75
 )

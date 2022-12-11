@@ -99,7 +99,8 @@ B类参数：
 https://github.com/shadow1ng/fscan  
 https://github.com/JustinTimperio/gomap  
 https://github.com/k8gege/LadonGo  
-https://github.com/u21h2/nacs
+https://github.com/u21h2/nacs  
+https://github.com/zyylhn/zscan  
 
 
 # 9. 更新概况

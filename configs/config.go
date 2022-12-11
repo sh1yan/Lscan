@@ -9,7 +9,7 @@ type HostInfo struct {
 	HostPortMap map[string][]string // 用于按照map的形式，存放最终扫描的端口号信息
 	Url         string              // web扫描url
 	UrlList     []string            // web服务扫描地址
-	Infostr     []string            // 暂时不知道干啥的
+	Infostr     []string            // web指纹信息列表
 }
 
 var HostPort []string // 临时存放ip:port形式的数组
@@ -78,7 +78,8 @@ var (
 	DnsLog      bool     // 使用 dnslog poc
 	IsWebCan    bool     // 不进行web漏洞扫描
 	PocFull     bool     // poc全部扫描使用，如：shiro 100 key
-	WebTimeout  int64    // 设置web超时,flag中默认为 5
+	WebTimeout  int      // 设置web超时,flag中默认为 5
+	WebThread   int      // Web扫描相关线程
 	PocNum      int      // -num poc扫描速率，flag中默认为20
 	Proxy       string   // 设置 poc 代理, -proxy http://127.0.0.1:8080
 	Socks5Proxy string   // 设置socks5代理参数

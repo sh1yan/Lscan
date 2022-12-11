@@ -4,12 +4,14 @@ import (
 	lcfd "Lscan/common/function/database"
 	lcfs "Lscan/common/function/systemapp"
 	cve "Lscan/common/function/vuldict/cve"
+	lcfw "Lscan/common/function/webapplication"
 )
 
 // FuncList 各类扫描模块函数名称和对应编号
 var FuncList = map[string]interface{}{
 	"survival":  lcfs.IpSurvivalScan,
 	"portscan":  lcfs.PortScanTcp,
+	"webtitle":  lcfw.WebTitle,
 	"ftp":       lcfs.FtpAttack,
 	"ssh":       lcfs.SshAttack,
 	"find-net":  lcfs.Findnet,
@@ -34,6 +36,7 @@ var FuncList = map[string]interface{}{
 
 // PortForFunc 用于根据端口号转换对应的功能函数编号
 var PortForFunc = map[string]string{
+	"70001": "webtitle",
 	"21":    "ftp",
 	"22":    "ssh",
 	"135":   "find-net",

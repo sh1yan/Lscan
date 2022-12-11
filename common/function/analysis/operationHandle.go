@@ -3,6 +3,7 @@ package analysis
 import (
 	lcc "Lscan/common/components"
 	"Lscan/common/components/logger"
+	lcfwi "Lscan/common/function/webapplication/initlib"
 	lc "Lscan/configs"
 	"bufio"
 	"fmt"
@@ -221,5 +222,7 @@ func parseComprehensive(info *lc.HostInfo) {
 			}
 		}
 	}
+
+	lcfwi.Inithttp() // 初始化 http Client
 
 }

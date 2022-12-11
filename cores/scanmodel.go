@@ -9,6 +9,7 @@ func InfoScan(addre *lc.HostInfo) {
 	lcfs.IpSurvivalScan(addre)
 	lcfs.PortScanTcp(addre)
 	modualSelectScan("find-net", addre)
+	modualSelectScan("webtitle", addre) // 执行webtitle扫描
 }
 
 func ScanAttack(addre *lc.HostInfo) {

@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"os"
 	"reflect"
+	"strconv"
 	"strings"
 )
 
@@ -61,6 +62,7 @@ func modualAloneScan(mnane string, info *lc.HostInfo) {
 		lcfs.IpSurvivalScan(info) // 加载IP地址存活扫描
 		return
 	}
+
 	lcfs.IpSurvivalScan(info) // 加载IP地址存活扫描
 	logger.Info(fmt.Sprintf("Start %s scanning detection module", mnane))
 	if len(info.Ports) >= 5 { // 若没有-p 输入唯一的端口号，则 addreHandle() 函数会把config中的端口号生成列表，所以该处设置如果端口号大于5，则表示没有输入 ip 参数，故进行反转找对应功能里的默认配置端口号
@@ -82,6 +84,19 @@ func modualAloneScan(mnane string, info *lc.HostInfo) {
 		result := fmt.Sprint("使用B类参数时，-p 参数输入了多个端口号")
 		logger.Error(result)
 		os.Exit(0)
+	}
+
+	// 临时替代方案-测试功能使用
+	if mnane == "webtitle" { // 若输入的模块名为webtitle，则默认处理80端口和443端口号
+		//for _, port := range []string{"80"} { // 暂时替代方案
+
+		for _, host := range info.Hosts {
+			info.ScanPort = strconv.Itoa(80)
+			info.ScanHost = host
+			addScan(mnane, info)
+		}
+		//}
+		return // 先暂时使用默认的两个端口号
 	}
 
 	// 开启对应的模块扫描
@@ -116,6 +131,8 @@ func modualSelectScan(mnane string, info *lc.HostInfo) {
 					addScan(funcNumber, info)
 					continue
 				}
+			} else if mnane == "webtitle" { // 若扫描出来的端口号都不在 lcfa.PortForFunc 中，则判断 mnane 是否为 webtitle ，若是则开启对应扫描。
+				addScan(mnane, info)
 			}
 		}
 	}
