@@ -1,5 +1,5 @@
 # Lscan
-一款内网快速打点的辅助性扫描工具，方便红队人员在内网横向移动前期的信息搜集、漏洞探测利用环节的工作开展。其工具特性主要为支持一键化三个档位的便捷式信息与漏洞扫描或每个功能模块单独批量式扫描探测功能。
+一款内网快速打点的辅助性扫描工具，方便红队人员在内网横向移动前期的信息搜集、漏洞探测利用环节的工作开展。其工具特性主要为支持一键化三个档位的便捷式信息与漏洞扫描或每个功能模块单独批量式扫描探测功能(第三档位计划是增加getshell功能，等后续迭代吧)。
 
 注：工具源码中基本上所有关键点也有对应的注释，所以该工具项目也可作为一个golang编写内网信息扫描工具的入门级思路学习项目(有一点是需要吐槽的，随着功能不断的增加，逻辑的判断，越到后面代码阅读逻辑可能跳了2,3个函数，所以推荐使用goland来阅读学习)。
 
@@ -11,15 +11,15 @@
 
 # 2. 主要功能
 
-| **信息收集：**                                                                |
-|:-------------------------------------------------------------------------|
-| 主机存活扫描 / 端口扫描 / 端口服务识别 / ~~WebTitle扫描~~ / ~~Web指纹识别~~                    |
-| **口令爆破：**                                                                |
-| mysql、mssql、redis、psql、oracle、memcached、mongodb、ssh、smb、rdp、ftp、elastic  |
-| **漏洞扫描：**                                                                |
-| docker、kubernetes、rmi、snmp、zookeeper、MS17010、MS-SMB2                     |
-| **扩展功能：**                                                                |
-|                                                                          |
+| **信息收集：**                                                                     |
+|:------------------------------------------------------------------------------|
+| 主机存活扫描 / 端口扫描 / 端口服务识别 / WebTitle扫描 / Web指纹识别 / find-net                      |
+| **口令爆破：**                                                                     |
+| mysql、mssql、redis、psql、oracle、memcached、mongodb、ssh、smb、rdp、ftp、elastic       |
+| **漏洞扫描：**                                                                     |
+| docker、kubernetes、rmi、snmp、zookeeper、MS17010、MS-SMB2                          |
+| **扩展功能：**                                                                     |
+|                                                                               |
 
 
 
@@ -34,35 +34,65 @@ Lscan.exe -h 192.168.1.1/24 -satt (扫描探测模式扫描)
 
 其他用法：
 ```
-Lscan.exe -h 192.168.1.1/24 -m ftp      // 模块：ftp 功能：口令爆破
-Lscan.exe -h 192.168.1.1/24 -m survival // 模块：资产 功能：存活探测
-Lscan.exe -h 192.168.1.1/24 -m portscan // 模块：资产 功能：端口开放扫描
-
+Lscan.exe -h 192.168.1.1/24 -m ftp      // 对C段进行批量ftp段爆破扫描
+Lscan.exe -h 192.168.1.1/24 -m survival // 对C段进行存活探测扫描
+Lscan.exe -h 192.168.1.1/24 -m portscan // 对C段进行端口开放扫描
+Lscan.exe -h 192.168.1.1/24 -satt -nm ssh // 对C段进行扫描探测模式扫描,但不进行ssh口令爆破
+Lscan.exe -h 192.168.1.1/24 -satt -apon // 对C段进行扫描探测模式扫描,端口进行全端口扫描
+Lscan.exe -h 192.168.1.1/24 -satt -np // 对C段进行扫描探测模式扫描,但不进行主机存活性探测
+Lscan.exe -h 192.168.1.1/24 -satt -np // 对C段进行扫描探测模式扫描,但不进行主机存活性探测
+Lscan.exe -h 192.168.1.1 -satt -logl 4 // 对主机ip进行扫描探测,同时在命令行中输出Debug信息
+Lscan.exe -h 192.168.1.1 -satt -logl 5 // 对主机ip进行扫描探测,同时在命令行中输出Debug信息和其他详细扫描显示信息
 ```
 
 参数列表：
 
 ```
-A类参数：
-	-host string
-	-h string
-	目标ip: 192.168.11.11 | 192.168.11.11-255 | 192.168.11.11,192.168.11.12
-	
-	-ifms string
-	参数介绍：只进行所有信息收集模块扫描
-	
-	-satt string
-	参数介绍：信息收集模块 + 口令爆破模块 + 漏洞探测模块 = 开启扫描
-	
-
-B类参数：
-	-m string
-	模块选项： survival | portscan | ftp | rdp | smb | ssh | assets | mongodb | mssql | mysql | oracle | postgres | redis 
+  -host string
+        设置扫描的主机的IP地址,例如: 192.168.1.1 | 192.168.1.1-255 | 192.168.1.1,192.168.1.2
+  -hf string
+        输入需要扫描的主机ip文件路径和名称,例如: -hf ip.txt
+  -h string
+        设置扫描的主机的IP地址,例如: 192.168.1.1 | 192.168.1.1-255 | 192.168.1.1,192.168.1.2
+  -pf string
+        输入需要扫描的ip端口文件路径和名称,例如: -pf port.txt
+  -p string
+        设置扫描的IP端口列表,例如: 22 | 1-65535 | 22,80,3306
+  -ifms
+        启动信息收集模式扫描
+  -satt
+        启动扫描探测模式扫描
+  -m string
+        选择需要单独扫描的模块功能: survival | portscan | ftp | ssh | find-net | snmp | smb | ms17010 | smbghost | rmi | mssql | oracle | zookeeper | docker | mysql | rdp | postgres | redis | webtitle | k8s | elastic | memcached | mongodb
+  -apon
+        启用此设置将使用对1~65535端口号列表进行扫描
+  -np
+        设置不进行主机存活性扫描
+  -nm string
+        设置不扫描的模块名称,例如 -nm ssh ,因为该模块功能爆破速度较慢,设置速度快的话会导致爆破结果不准确
+  -o string
+         设置扫描结果的输出路径和结果名称 (默认名 outcome.txt)
+  -userf string
+        输入设置口令爆破时所需的账号文件路径和名称,例如: -userf user.txt
+  -user string
+        设置口令爆破时的账号
+  -pwdf string
+        输入设置口令爆破时所需的密码文件路径和名称,例如: -pwdf pwd.txt
+  -pwd string
+        设置口令爆破时的密码
+  -logl int
+        设置 log 等级,用于判断日志级别输出 (默认等级 3,最高等级可设置为 5)
+  -socks5 string
+        设置socks5代理，将在tcp连接中使用，超时设置将不起作用,例如: -socks5  socks5://127.0.0.1:1080
+  -tps int
+        设置端口扫描模块功能的并发线程值 (默认值 1000)
+  -time int
+        设置tcp连接超时时间 (默认值 3)
 	
 ```
 
 # 4. 运行展示
-以下运行截图暂为Debug下运行截图,非正式公开版本(2022.11.27)  
+以下运行截图均为代码Debug测试中运行截图,非最终结果样式(2022.12.12)  
 `Lscan.exe -h 10.171.130.99  (默认信息收集模块)`
 ![](./image/默认运行显示.png)
 

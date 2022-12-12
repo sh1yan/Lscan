@@ -13,7 +13,7 @@ import (
 )
 
 // 当前版本信息
-var version = "1.0.1"
+var version = "1.0.2"
 
 // logo
 var slogan = `
@@ -71,7 +71,7 @@ func Flag(addre *lc.HostInfo, instruct *lc.CommandInfo) {
 	flag.IntVar(&lc.WebTimeout, "wto", 5, "Set web timeout")
 	flag.IntVar(&lc.WebThread, "wt", 600, "Set web Thread")
 	flag.IntVar(&lc.PocNum, "num", 20, "poc rate")
-	flag.StringVar(&lc.Proxy, "proxy", "", "set poc proxy, -proxy http://127.0.0.1:8080")
+	flag.StringVar(&lc.Proxy, "proxy", "", "set proxy, -proxy http://127.0.0.1:8080")
 	flag.StringVar(&lc.Socks5Proxy, "socks5", "", "set socks5 proxy, will be used in tcp connection, timeout setting will not work")
 	flag.StringVar(&lc.Cookie, "cookie", "", "set poc cookie,-cookie rememberMe=login")
 	flag.StringVar(&lc.Pocinfo.PocName, "pocname", "", "use the pocs these contain pocname, -pocname weblogic")
@@ -104,27 +104,12 @@ Examples of general usage:
 	Lscan.exe -h 192.168.1.1/24 -satt (Scan detection mode scan)
 
 Other usage examples:
-	Lscan.exe -h 192.168.1.1/24 -m ftp -f blast  		 // Password cracking for ftp service
-	Lscan.exe -h 192.168.1.1/24 -m assets -f survival  	 // Carry out survivability detection on asset IP
-	Lscan.exe -h 192.168.1.1/24 -m assets -f port_open 	 // Perform port scanning on asset IP
+	Lscan.exe -h 192.168.1.1/24 -m ftp  		 // Password cracking for ftp service
+	Lscan.exe -h 192.168.1.1/24 -m survival  	 // Carry out survivability detection on asset IP
+	Lscan.exe -h 192.168.1.1/24 -m port_open 	 // Perform port scanning on asset IP
 
 Parameter list:
-	explain: Type A parameters can be used independently, while most type B parameters need to be used in combination with type C parameters, and type C parameters cannot be used independently.
 
-  	Class A parameters:
-		-host string
-		-h string
-		target ip: 192.168.1.1 | 192.168.1.1-255 | 192.168.1.1,192.168.1.2
-	
-		-ifms string
-		Parameter introduction: Only scan all information collection modules
-	
-		-satt string
-		Parameter introduction: information collection module+password blasting module+vulnerability detection module=enable scanning
-
-  	Class B parameters:
-		-m string
-		Module Options：ftp | rdp | smb | ssh | assets | mongodb | mssql | mysql | oracle | postgres | redis | web
 
 
 `
