@@ -22,8 +22,10 @@ var addressChan = make(chan string, lenIpPort)
 var addressList []string
 
 func workerProbePort() {
-	//函数结束释放连接
+
+	//函数结束wg减1
 	defer wg.Done()
+
 	for {
 		address, ok := <-addressChan
 		if !ok {
@@ -43,6 +45,7 @@ func workerProbePort() {
 
 		logger.Success(result)
 		addressList = append(addressList, address)
+
 	}
 }
 
@@ -89,6 +92,7 @@ func PortScanTcp(addre *configs.HostInfo) {
 	for work := 0; work < pool_size; work++ {
 		wg.Add(1)
 		pool.Submit(workerProbePort)
+
 	}
 
 	//等待结束

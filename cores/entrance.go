@@ -99,9 +99,9 @@ func Flag(addre *lc.HostInfo, instruct *lc.CommandInfo) {
 func Usage() {
 	slogan := `
 Examples of general usage:
-	Lscan.exe -h 192.168.1.1/24       (Information collection mode scan)
-	Lscan.exe -h 192.168.1.1/24 -ifms (Information collection mode scan)
-	Lscan.exe -h 192.168.1.1/24 -satt (Scan detection mode scan)
+    Lscan.exe -h 192.168.1.1/24                 (Information collection mode scan)
+	Lscan.exe -h 192.168.1.1/24 -ifms           (Information collection mode scan)
+	Lscan.exe -h 192.168.1.1/24 -satt           (Scan detection mode scan)
 
 Other usage examples:
 	Lscan.exe -h 192.168.1.1/24 -m ftp  		 // Batch ftp section blasting scanning for section C
@@ -109,46 +109,46 @@ Other usage examples:
 	Lscan.exe -h 192.168.1.1/24 -m portscan 	 // Open port scanning for section C
 
 Parameter list:
-  -host string
-        IP address of the host you want to scan,for example: 192.168.1.1 | 192.168.1.1-255 | 192.168.1.1,192.168.1.2
-  -hf string
-        host file,for example: -hf ip.txt
-  -h string
-        IP address of the host you want to scan,for example: 192.168.1.1 | 192.168.1.1-255 | 192.168.1.1,192.168.1.2
-  -pf string
-        Port File,for example: -pf port.txt
-  -p string
-        IP port of the host you want to scan,for example: 22 | 1-65535 | 22,80,3306
-  -ifms
-        Start Information Collection Mode Scan
-  -satt
-        Start scan detection mode scan
-  -m string
-        Select scan modular: survival | portscan | ftp | ssh | find-net | snmp | smb | ms17010 | smbghost | rmi | mssql | oracle | zookeeper | docker | mysql | rdp | postgres | redis | webtitle | k8s | elastic | memcached | mongodb
-  -apon
-        Enabling this setting will scan the list of 1~65,535 port numbers with
-  -np
-        Set not to perform host viability scan
-  -nm string
-        Set the name of the module that is not scanned, for example: -nm ssh
-  -o string
-         Set the output path and result name of the scan results (default name outcome.txt)
-  -userf string
-        username file, for example: -userf user.txt
-  -user string
-        username
-  -pwdf string
-        password file, for example: -pwdf pwd.txt
-  -pwd string
-        password
-  -logl int
-        Sets the log level, which is used to determine the log level output (default level 3, maximum level can be set to 5)
-  -socks5 string
-        set socks5 proxy, will be used in tcp connection, timeout setting will not work, for example: -socks5  socks5://127.0.0.1:1080
-  -tps int
-        Sets the concurrent thread value for the port scan module function (default is 1000)
-  -time int
-        Set the tcp connection timeout (default 3)
+    -host string
+          IP address of the host you want to scan,for example: 192.168.1.1 | 192.168.1.1-255 | 192.168.1.1,192.168.1.2
+    -hf string
+          host file,for example: -hf ip.txt
+    -h string
+          IP address of the host you want to scan,for example: 192.168.1.1 | 192.168.1.1-255 | 192.168.1.1,192.168.1.2
+    -pf string
+          Port File,for example: -pf port.txt
+    -p string
+          IP port of the host you want to scan,for example: 22 | 1-65535 | 22,80,3306
+    -ifms
+          Start Information Collection Mode Scan
+    -satt
+          Start scan detection mode scan
+    -m string
+          Select scan modular: survival | portscan | ftp | ssh | find-net | snmp | smb | ms17010 | smbghost | rmi | mssql | oracle | zookeeper | docker | mysql | rdp | postgres | redis | webtitle | k8s | elastic | memcached | mongodb
+    -apon
+          Enabling this setting will scan the list of 1~65,535 port numbers with
+    -np
+          Set not to perform host viability scan
+    -nm string
+          Set the name of the module that is not scanned, for example: -nm ssh
+    -o string
+           Set the output path and result name of the scan results (default name outcome.txt)
+    -userf string
+          username file, for example: -userf user.txt
+    -user string
+          username
+    -pwdf string
+          password file, for example: -pwdf pwd.txt
+    -pwd string
+          password
+    -logl int
+          Sets the log level, which is used to determine the log level output (default level 3, maximum level can be set to 5)
+    -socks5 string
+          set socks5 proxy, will be used in tcp connection, timeout setting will not work, for example: -socks5  socks5://127.0.0.1:1080
+    -tps int
+          Sets the concurrent thread value for the port scan module function (default is 1000)
+    -time int
+          Set the tcp connection timeout (default 3)
 
 `
 	print(slogan)

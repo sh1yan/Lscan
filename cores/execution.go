@@ -9,7 +9,6 @@ import (
 	"fmt"
 	"os"
 	"reflect"
-	"strconv"
 	"strings"
 )
 
@@ -49,10 +48,11 @@ func attackModualScan(info *lc.HostInfo) {
 					addScan(funcNumber, info)
 					continue
 				}
+			} else { // 若扫描出来的端口号都不在 lcfa.PortForFunc 中，则开启 webtitle 扫描。
+				addScan("webtitle", info)
 			}
 		}
 	}
-
 }
 
 // modualAloneScan 用于扫描特定端口号的模块的函数，该函数只涉及在 entrance.go 中判断模块使用
@@ -86,25 +86,24 @@ func modualAloneScan(mnane string, info *lc.HostInfo) {
 		os.Exit(0)
 	}
 
-	// 临时替代方案-测试功能使用
-	if mnane == "webtitle" { // 若输入的模块名为webtitle，则默认处理80端口和443端口号
-		//for _, port := range []string{"80"} { // 暂时替代方案
+	logger.Debug(fmt.Sprint("info.scanport", info.ScanPort)) // 用于显示当前自动选择的端口号
 
+	if lcc.IsContain(lc.SpecialIdentifier, info.ScanPort) { // 判断是否为特殊功能,若是则进入下列switch判断
+		switch mnane {
+		case "webtitle": // 若 -m 输入了 webtitle 则先进行主机存活,再进行端口扫描，最后进行webtitle扫描
+			lcfs.PortScanTcp(info)
+			modualSelectScan("webtitle", info)
+		default:
+			logger.Error("特殊模块编写错误，此处为bug!")
+			return
+		}
+	} else {
+		// 开启对应的模块扫描
 		for _, host := range info.Hosts {
-			info.ScanPort = strconv.Itoa(80)
 			info.ScanHost = host
 			addScan(mnane, info)
 		}
-		//}
-		return // 先暂时使用默认的两个端口号
 	}
-
-	// 开启对应的模块扫描
-	for _, host := range info.Hosts {
-		info.ScanHost = host
-		addScan(mnane, info)
-	}
-
 }
 
 // modualSelectScan 用于手动输入模块名称的自动化扫描，使用该模块必须保证前面已经启动了portscan的扫描，且存在一定的存活端口号

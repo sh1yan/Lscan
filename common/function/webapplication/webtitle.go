@@ -51,12 +51,12 @@ func WebTitle(info *lc.HostInfo) (*lc.HostInfo, error) {
 			info.Url = fmt.Sprintf("https://%s", info.ScanHost)
 		} else {
 			host := fmt.Sprintf("%s:%s", info.ScanHost, info.ScanPort)
-			protocol := GetProtocol(host, time.Duration(lc.WebTimeout)*time.Second) // 获取当前 ip:port 协议
+			protocol := getProtocol(host, time.Duration(lc.WebTimeout)*time.Second) // 获取当前 ip:port 协议
 			info.Url = fmt.Sprintf("%s://%s:%s", protocol, info.ScanHost, info.ScanPort)
 		}
 	} else {
 		if !strings.Contains(info.Url, "://") {
-			protocol := GetProtocol(info.Url, time.Duration(lc.WebTimeout)*time.Second)
+			protocol := getProtocol(info.Url, time.Duration(lc.WebTimeout)*time.Second)
 			info.Url = fmt.Sprintf("%s://%s", protocol, info.Url)
 		}
 	}
@@ -135,8 +135,8 @@ func WebTitle(info *lc.HostInfo) (*lc.HostInfo, error) {
 	return info, err
 }
 
-// 获取http协议类型
-func GetProtocol(host string, Timeout time.Duration) string {
+// getProtocol 获取http协议类型
+func getProtocol(host string, Timeout time.Duration) string {
 	conn, err := tls.DialWithDialer(&net.Dialer{Timeout: Timeout}, "tcp", host, &tls.Config{InsecureSkipVerify: true})
 	defer func() {
 		if conn != nil {
@@ -239,7 +239,7 @@ func geturl(info *lc.HostInfo, flag int, CheckData []infodict.CheckDatas) (error
 						encode2 = detectorstr.Charset
 					}
 					if encode == "gbk" || encode == "gb2312" || strings.Contains(strings.ToLower(encode2), "gb") {
-						titleGBK, err := Decodegbk(text)
+						titleGBK, err := decodegbk(text)
 						if err == nil {
 							title = string(titleGBK)
 						}
@@ -282,7 +282,7 @@ func geturl(info *lc.HostInfo, flag int, CheckData []infodict.CheckDatas) (error
 	return err, "", CheckData, baseinfo
 }
 
-// 获取响应body
+// getRespBody 获取响应body
 func getRespBody(oResp *http.Response) ([]byte, error) {
 	var body []byte
 	if oResp.Header.Get("Content-Encoding") == "gzip" {
@@ -312,8 +312,8 @@ func getRespBody(oResp *http.Response) ([]byte, error) {
 	return body, nil
 }
 
-// Decodegbk 解码GBK
-func Decodegbk(s []byte) ([]byte, error) { // GBK解码
+// decodegbk 解码GBK
+func decodegbk(s []byte) ([]byte, error) { // GBK解码
 	I := bytes.NewReader(s)
 	O := transform.NewReader(I, simplifiedchinese.GBK.NewDecoder())
 	d, e := io.ReadAll(O)
