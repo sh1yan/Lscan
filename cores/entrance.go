@@ -100,13 +100,13 @@ func Usage() {
 	slogan := `
 Examples of general usage:
     Lscan.exe -h 192.168.1.1/24                 (Information collection mode scan)
-	Lscan.exe -h 192.168.1.1/24 -ifms           (Information collection mode scan)
-	Lscan.exe -h 192.168.1.1/24 -satt           (Scan detection mode scan)
+    Lscan.exe -h 192.168.1.1/24 -ifms           (Information collection mode scan)
+    Lscan.exe -h 192.168.1.1/24 -satt           (Scan detection mode scan)
 
 Other usage examples:
-	Lscan.exe -h 192.168.1.1/24 -m ftp  		 // Batch ftp section blasting scanning for section C
-	Lscan.exe -h 192.168.1.1/24 -m survival  	 // Perform survival detection scanning for section C
-	Lscan.exe -h 192.168.1.1/24 -m portscan 	 // Open port scanning for section C
+    Lscan.exe -h 192.168.1.1/24 -m ftp  		 // Batch ftp section blasting scanning for section C
+    Lscan.exe -h 192.168.1.1/24 -m survival  	 // Perform survival detection scanning for section C
+    Lscan.exe -h 192.168.1.1/24 -m portscan 	 // Open port scanning for section C
 
 Parameter list:
     -host string
