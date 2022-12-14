@@ -1,7 +1,7 @@
 # Lscan
 一款内网快速打点的辅助性扫描工具，方便红队人员在内网横向移动前期的信息搜集、漏洞探测利用环节的工作开展。其工具特性主要为支持一键化三个档位的便捷式信息与漏洞扫描或每个功能模块单独批量式扫描探测功能(第三档位计划是增加getshell功能，等后续迭代吧)。
 
-注：工具源码中基本上所有关键点也有对应的注释，所以该工具项目也可作为一个golang编写内网信息扫描工具的入门级思路学习项目(有一点是需要吐槽的，随着功能不断的增加，逻辑的判断，越到后面代码阅读逻辑可能跳了2,3个函数，所以推荐使用goland来阅读学习)。
+注：工具源码中基本上所有关键点都有对应的注释，所以该工具项目也可作为一个golang编写内网信息扫描工具的入门级思路学习项目(有一点是需要吐槽的，随着功能不断的增加，逻辑的判断，越到后面代码阅读逻辑可能跳了2,3个函数，所以推荐使用goland来阅读学习)。
 
 # 1. 背景介绍
 
@@ -11,15 +11,15 @@
 
 # 2. 主要功能
 
-| **信息收集：**                                                                     |
-|:------------------------------------------------------------------------------|
-| 主机存活扫描 / 端口扫描 / 端口服务识别 / WebTitle扫描 / Web指纹识别 / find-net                      |
-| **口令爆破：**                                                                     |
-| mysql、mssql、redis、psql、oracle、memcached、mongodb、ssh、smb、rdp、ftp、elastic       |
-| **漏洞扫描：**                                                                     |
-| docker、kubernetes、rmi、snmp、zookeeper、MS17010、MS-SMB2                          |
-| **扩展功能：**                                                                     |
-|                                                                               |
+| **信息收集：**                                                               |
+|:------------------------------------------------------------------------|
+| 主机存活扫描 / 端口扫描 / 端口服务识别 / WebTitle扫描 / Web指纹识别 / find-net / NetBios      |
+| **口令爆破：**                                                               |
+| mysql、mssql、redis、psql、oracle、memcached、mongodb、ssh、smb、rdp、ftp、elastic |
+| **漏洞扫描：**                                                               |
+| docker、kubernetes、rmi、snmp、zookeeper、MS17010、MS-SMB2                    |
+| **扩展功能：**                                                               |
+|                                                                         |
 
 
 
@@ -62,7 +62,7 @@ Lscan.exe -h 192.168.1.1 -satt -logl 5 // 对主机ip进行扫描探测,同时�
   -satt
         启动扫描探测模式扫描
   -m string
-        选择需要单独扫描的模块功能: survival | portscan | ftp | ssh | find-net | snmp | smb | ms17010 | smbghost | rmi | mssql | oracle | zookeeper | docker | mysql | rdp | postgres | redis | webtitle | k8s | elastic | memcached | mongodb
+        选择需要单独扫描的模块功能: survival | portscan | ftp | ssh | find-net | snmp | smb | ms17010 | smbghost | rmi | mssql | oracle | zookeeper | docker | mysql | rdp | postgres | redis | webtitle | k8s | elastic | memcached | mongodb | netbios
   -apon
         启用此设置将使用对1~65535端口号列表进行扫描
   -np

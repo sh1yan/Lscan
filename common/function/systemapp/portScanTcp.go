@@ -3,11 +3,10 @@ package systemapp
 import (
 	lcc "Lscan/common/components"
 	"Lscan/common/components/logger"
-	"Lscan/configs"
+	lc "Lscan/configs"
 	"fmt"
 	"github.com/sh1yan/gohive"
 	"strconv"
-	"strings"
 	"sync"
 	"time"
 )
@@ -32,14 +31,13 @@ func workerProbePort() {
 			break
 		}
 
-		conn, err := lcc.WrapperTcpWithTimeout("tcp", address, time.Second*time.Duration(configs.Timeout))
+		conn, err := lcc.WrapperTcpWithTimeout("tcp", address, time.Second*time.Duration(lc.Timeout))
 		if err != nil {
 			continue
 		}
 		conn.Close()
-		portString := strings.Split(address, ":")[1]
-		portInt, _ := strconv.Atoi(portString)
-		pt := lcc.PortDefaultProtocol(portInt)
+		_, port := lcc.HostAddressTurnTCPAddr(address) // 转换下 address 为 ip 和 port
+		pt := lcc.PortDefaultProtocol(port)
 		result := fmt.Sprintf("open:%s %s[%s]", address, creatSpace(address), pt)
 		// [2022.11.25] [+] open:192.168.1.10:445 [Microsoft-DS]
 
@@ -50,17 +48,17 @@ func workerProbePort() {
 }
 
 // PortScanTcp 参考CSDN网上的并发试端口扫描代码
-func PortScanTcp(addre *configs.HostInfo) {
+func PortScanTcp(addre *lc.HostInfo) {
 	logger.Info("Start the port survival detection module")
 	ip := addre.Hosts
 	port := addre.Ports
 
-	if len(configs.HostPort) != 0 { // 用于把从 -hf 中读取的 ip:port 获取效验下，没问题的话，则进行添加该参数进行扫描
-		for _, addre := range configs.HostPort {
-			addreIpPort := strings.Split(addre, ":")
-			if lcc.IsContain(ip, addreIpPort[0]) {
-				if !lcc.IsContain(port, addreIpPort[1]) {
-					port = append(port, addreIpPort[1]) // 如果该IP为存活IP，且该端口号没有在端口号扫描列表中，则进行追加扫描该端口号
+	if len(lc.HostPort) != 0 { // 用于把从 -hf 中读取的 ip:port 获取效验下，没问题的话，则进行添加该参数进行扫描
+		for _, addre := range lc.HostPort {
+			ip1, port1 := lcc.HostAddressTurnTCPAddr(addre)
+			if lcc.IsContain(ip, ip1) {
+				if !lcc.IsContain(port, strconv.Itoa(port1)) {
+					port = append(port, strconv.Itoa(port1)) // 如果该IP为存活IP，且该端口号没有在端口号扫描列表中，则进行追加扫描该端口号
 				}
 			}
 		}
@@ -70,7 +68,7 @@ func PortScanTcp(addre *configs.HostInfo) {
 	logger.Debug(fmt.Sprint("Port number scanning list: ", port))
 
 	//线程池大小
-	var pool_size = configs.ThreadsPortScan
+	var pool_size = lc.ThreadsPortScan
 	var pool = gohive.NewFixedSizePool(pool_size)
 
 	//拼接ip:端口

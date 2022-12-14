@@ -81,12 +81,12 @@ func modualAloneScan(mnane string, info *lc.HostInfo) {
 	} else if len(info.Ports) == 1 { // 判断是否输入了1个 -p 端口号，若是，则进入
 		info.ScanPort = info.Ports[0]
 	} else { // 若不是，则报错
-		result := fmt.Sprint("使用B类参数时，-p 参数输入了多个端口号")
+		result := fmt.Sprint("When the - m parameter is used, multiple port numbers are entered for the - p parameter")
 		logger.Error(result)
 		os.Exit(0)
 	}
 
-	logger.Debug(fmt.Sprint("info.scanport", info.ScanPort)) // 用于显示当前自动选择的端口号
+	logger.Debug(fmt.Sprint("info.scanport: ", info.ScanPort)) // 用于显示当前自动选择的端口号
 
 	if lcc.IsContain(lc.SpecialIdentifier, info.ScanPort) { // 判断是否为特殊功能,若是则进入下列switch判断
 		switch mnane {
@@ -94,7 +94,7 @@ func modualAloneScan(mnane string, info *lc.HostInfo) {
 			lcfs.PortScanTcp(info)
 			modualSelectScan("webtitle", info)
 		default:
-			logger.Error("特殊模块编写错误，此处为bug!")
+			logger.Error("Special module writing error, here is a bug")
 			return
 		}
 	} else {

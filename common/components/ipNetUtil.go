@@ -39,8 +39,8 @@ func IpStringTurnIPClass(ipAddress string) (ip net.IP) {
 	return ip
 }
 
+// DomainNameTurnIPClass 输入域名，返回一个IP地址对象，和一个域名对应多个IP地址列表
 func DomainNameTurnIPClass(domain string) (ipAddr *net.IPAddr, ns []string) {
-	// 输入域名，返回一个IP地址对象，和一个域名对应多个IP地址列表
 
 	ipAddr, err := net.ResolveIPAddr("ip", domain)
 	if err != nil {
@@ -59,8 +59,8 @@ func DomainNameTurnIPClass(domain string) (ipAddr *net.IPAddr, ns []string) {
 	return ipAddr, ns
 }
 
+// HostAddressTurnTCPAddr 将一个host地址转换为TCPAddr。host=ip:port
 func HostAddressTurnTCPAddr(ipAndport string) (ip string, port int) {
-	// 将一个host地址转换为TCPAddr。host=ip:port
 
 	pTCPAddr, err := net.ResolveTCPAddr("tcp", ipAndport)
 	if err != nil {

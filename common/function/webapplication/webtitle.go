@@ -62,8 +62,8 @@ func WebTitle(info *lc.HostInfo) (*lc.HostInfo, error) {
 	}
 	// re正则匹配返回跳转的url或者https，checkdata是header和body
 	err, result, CheckData, _ := geturl(info, 1, CheckData)
-	logger.Debug("首次请求 get url 地址完成")
-	logger.Debug(fmt.Sprint("首次URL地址:", info.Url, " = Jump-URL-Address => ", result))
+	logger.Debug("First request for get url address completed")
+	logger.Debug(fmt.Sprint("First URL Address: ", info.Url, " = Jump-URL-Address => ", result))
 	firstInfoUrl := info.Url // 首次输入url地址，用于结果输出时判断是否跳转
 	if err != nil && !strings.Contains(err.Error(), "EOF") {
 		return nil, err
@@ -109,25 +109,25 @@ func WebTitle(info *lc.HostInfo) (*lc.HostInfo, error) {
 	}
 	// 将CheckData送去与指纹库对比
 	info.Infostr = infodict.WebAppTypeCheck(CheckData)
-	logger.Debug(fmt.Sprint("当前web指纹判别结果: ", info.Infostr)) // -------------------------------测试代码
+	logger.Debug(fmt.Sprint("Current web fingerprint identification results: ", info.Infostr))
 
 	// 吐槽下，暂时没想好杂优化以下代码 2022.12.11
 	if info.Url == firstInfoUrl { // 判断是否存在跳转的情况，不存在跳转进入下列
 
 		if info.Infostr != nil {
-			logger.Success(fmt.Sprintf("WebUrl: %v \t code:%v \t len:%v \t title:%v \t banner:%s", info.Url, baseinfo.code, baseinfo.len, baseinfo.title, info.Infostr))
+			logger.Success(fmt.Sprintf("WebUrl: %v    code:%v   len:%v   title:%v   banner:%s", info.Url, baseinfo.code, baseinfo.len, baseinfo.title, info.Infostr))
 		} else {
 			// [+] WebUrl: http://192.168.1.1/cgi-bin/index2.asp  code:200 len:13532 title:Login
-			logger.Success(fmt.Sprintf("WebUrl: %v \tcode:%v \t len:%v \t title:%v", info.Url, baseinfo.code, baseinfo.len, baseinfo.title))
+			logger.Success(fmt.Sprintf("WebUrl: %v    code:%v   len:%v   title:%v", info.Url, baseinfo.code, baseinfo.len, baseinfo.title))
 		}
 
 	} else { // 存在URL跳转的行为
 
 		if info.Infostr != nil {
-			logger.Success(fmt.Sprintf("WebUrl: %v \t code:%v \t len:%v \t title:%v \t banner:%s \t SourceURL:%s", info.Url, baseinfo.code, baseinfo.len, baseinfo.title, info.Infostr, firstInfoUrl))
+			logger.Success(fmt.Sprintf("WebUrl: %v    code:%v   len:%v   title:%v   banner:%s   SourceURL:%s", info.Url, baseinfo.code, baseinfo.len, baseinfo.title, info.Infostr, firstInfoUrl))
 		} else {
 			// [+] WebUrl: http://192.168.1.1/cgi-bin/index2.asp  code:200 len:13532 title:Login
-			logger.Success(fmt.Sprintf("WebUrl: %v \tcode:%v \t len:%v \t title:%v \t SourceURL:%s", info.Url, baseinfo.code, baseinfo.len, baseinfo.title, firstInfoUrl))
+			logger.Success(fmt.Sprintf("WebUrl: %v    code:%v   len:%v   title:%v   SourceURL:%s", info.Url, baseinfo.code, baseinfo.len, baseinfo.title, firstInfoUrl))
 		}
 
 	}
@@ -157,7 +157,7 @@ func getProtocol(host string, Timeout time.Duration) string {
 // geturl 获取url信息
 func geturl(info *lc.HostInfo, flag int, CheckData []infodict.CheckDatas) (error, string, []infodict.CheckDatas, httpresp) {
 	Url := info.Url
-	logger.Debug(fmt.Sprint("输入URL地址: ", Url))
+	logger.Debug(fmt.Sprint("Enter URL Address: ", Url))
 	// 设置url：访问到网站的图标
 	if flag == 2 {
 		URL, err := url.Parse(Url)
@@ -182,17 +182,18 @@ func geturl(info *lc.HostInfo, flag int, CheckData []infodict.CheckDatas) (error
 		} else {
 			client = lcfwi.Client // 设置普通客户端连接
 		}
-		logger.Debug(fmt.Sprint("请求URL连接: ", req.URL))
+		logger.Debug(fmt.Sprint("Request URL Connection: ", req.URL))
 		// 发送请求
+		client.Timeout = time.Duration(lc.WebTimeout) * time.Second // 设置 client 超时时间
 		resp, err := client.Do(req)
-		logger.Debug(fmt.Sprint("获取当前请求响应信息: ", resp))
+		logger.Debug(fmt.Sprint("Get the current request response information: ", resp))
 		if err == nil {
 			defer resp.Body.Close()
 			var title string
 			var text []byte
 			body, err := getRespBody(resp) // 获取响应正文
 			if err != nil {
-				logger.DebugError(err) // ------------------------------ 测试代码
+				logger.DebugError(err)
 				return err, "https", CheckData, baseinfo
 			}
 			// 获取http title

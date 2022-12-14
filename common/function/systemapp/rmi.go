@@ -31,7 +31,7 @@ func RmiAttack(info *lc.HostInfo) {
 			logger.Failed(result)
 			return
 		}
-		r1, _ := readBytes(conn)
+		r1, _ := readRmiBytes(conn)
 		if hex.EncodeToString(r1[:1]) == "4e" {
 			result := fmt.Sprintf("[RMI] %s:%d RMI Registry Deserialization", ip, port)
 			logger.Success(result)
@@ -45,8 +45,8 @@ func RmiAttack(info *lc.HostInfo) {
 	}
 }
 
-// readBytes 读取字节数据
-func readBytes(conn net.Conn) (result []byte, err error) {
+// readRmiBytes 读取字节数据
+func readRmiBytes(conn net.Conn) (result []byte, err error) {
 	buf := make([]byte, 4096)
 	for {
 		count, err := conn.Read(buf)

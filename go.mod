@@ -21,6 +21,7 @@ require (
 	golang.org/x/text v0.4.0
 	gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22
 	gopkg.in/olivere/elastic.v3 v3.0.75
+	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (

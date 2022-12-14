@@ -6,7 +6,6 @@ import (
 	lc "Lscan/configs"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"strconv"
 	"strings"
@@ -28,7 +27,7 @@ func DockerAttack(info *lc.HostInfo) {
 			if err != nil {
 			}
 		}(get.Body)
-		all, err := ioutil.ReadAll(get.Body)
+		all, err := io.ReadAll(get.Body)
 		if err != nil {
 			result := fmt.Sprintf("[DOCKER] %s:%d There is no unauthorized access to docker!", ip, port)
 			logger.Failed(result)

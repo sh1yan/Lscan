@@ -53,7 +53,7 @@ func addreHandle(addre *lc.HostInfo) {
 				addre.Ports = lcc.ParsePortCreate(newport)
 			}
 		} else {
-			result := fmt.Sprint("端口文件地址路径错误，加载失败")
+			result := fmt.Sprint("Port file address path error, loading failed")
 			logger.Error(result)
 			os.Exit(0)
 		}
@@ -64,7 +64,7 @@ func addreHandle(addre *lc.HostInfo) {
 			addre.Ports = lcc.ParsePortCreate(lc.AllPorts)
 
 		} else {
-			logger.Error("配置文件中的 configs.AllPorts 设置错误，不符合规范！")
+			logger.Error("The configs.AllPorts setting in the configuration file is incorrect and does not conform to the specification")
 			os.Exit(0)
 		}
 	} else if addre.ScanPort == "" && lc.Apon == false {
@@ -74,11 +74,11 @@ func addreHandle(addre *lc.HostInfo) {
 			addre.Ports = lcc.ParsePortCreate(lc.GeneralPorts)
 
 		} else {
-			logger.Error("配置文件中的 configs.GeneralPorts 设置错误，不符合规范！")
+			logger.Error("The configs.GeneralPorts setting in the configuration file is incorrect and does not conform to the specification")
 			os.Exit(0)
 		}
 	} else {
-		logger.Error("特殊原因造成端口号未设置成功！")
+		logger.Error("The port number is not set successfully due to special reasons")
 		os.Exit(0)
 	}
 
@@ -212,13 +212,13 @@ func parseComprehensive(info *lc.HostInfo) {
 		for key, _ := range FuncList {
 			funcNameList = append(funcNameList, key)
 		}
-		logger.Debug(fmt.Sprint("operationHandle.go 214 funcNameList => ", funcNameList))
+		logger.Debug(fmt.Sprint("funcNameList => ", funcNameList))
 		nsmodular := strings.Split(lc.NoScanModular, ",")
 		for _, val := range nsmodular {
-			logger.Debug(fmt.Sprint("operationHandle.go 217 val => ", val))
+			logger.Debug(fmt.Sprint("val => ", val))
 			if lcc.IsContain(funcNameList, val) {
 				lc.NoScanModularList = append(lc.NoScanModularList, val)
-				logger.Debug(fmt.Sprint("operationHandle.go 220 lc.NoScanModularList => ", lc.NoScanModularList))
+				logger.Debug(fmt.Sprint("lc.NoScanModularList => ", lc.NoScanModularList))
 			}
 		}
 	}

@@ -13,7 +13,7 @@ import (
 )
 
 // 当前版本信息
-var version = "1.0.2"
+var version = "1.0.3"
 
 // logo
 var slogan = `
@@ -68,7 +68,7 @@ func Flag(addre *lc.HostInfo, instruct *lc.CommandInfo) {
 	flag.IntVar(&lc.ThreadsPortScan, "tps", 1000, "PortScan Thread nums")
 	flag.BoolVar(&lc.DnsLog, "dns", false, "using dnslog poc")
 	flag.BoolVar(&lc.PocFull, "full", false, "poc full scan,as: shiro 100 key")
-	flag.IntVar(&lc.WebTimeout, "wto", 5, "Set web timeout")
+	flag.IntVar(&lc.WebTimeout, "wto", 3, "Set web timeout")
 	flag.IntVar(&lc.WebThread, "wt", 600, "Set web Thread")
 	flag.IntVar(&lc.PocNum, "num", 20, "poc rate")
 	flag.StringVar(&lc.Proxy, "proxy", "", "set proxy, -proxy http://127.0.0.1:8080")

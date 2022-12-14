@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/gookit/color"
 	"os"
+	"path"
 	"regexp"
 	"runtime"
 	"strings"
@@ -34,6 +35,18 @@ var (
 // SetLevel 设置输出等级
 func SetLevel(l Level) {
 	defaultLevel = l
+}
+
+func getCallerInfo(skip int) (info string) {
+	_, file, lineNo, ok := runtime.Caller(skip)
+	if !ok {
+		info = "runtime.Caller() failed"
+	}
+
+	// funcName := runtime.FuncForPC(pc).Name()
+	fileName := path.Base(file) // Base函数返回路径的最后一个元素
+	// return fmt.Sprintf("FuncName:%s, file:%s, line:%d", funcName, fileName, lineNo)
+	return fmt.Sprintf("%s line:%d", fileName, lineNo)
 }
 
 // log 日志输出效验判断
@@ -102,7 +115,7 @@ func Warning(detail string) {
 // Debug 调试日志 log等级：4
 func Debug(detail string) {
 	noWrite = 1
-	log(LevelDebug, noWrite, fmt.Sprintf("[%s] [%s] %s", Cyan(getDate()), LightWhite("DEBUG"), detail))
+	log(LevelDebug, noWrite, fmt.Sprintf("[%s] [%s] [%s] %s", Cyan(getDate()), LightWhite("DEBUG"), Yellow(getCallerInfo(2)), detail))
 }
 
 // Verbose 详细调试信息日志 log等级：5
